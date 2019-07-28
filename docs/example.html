@@ -1,38 +1,107 @@
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Wizard Steps - Example</title>
-  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="../dist/wizard-steps.css">
 </head>
+
 <body>
   <div class="wizard-steps">
+    <div class="wizard-steps-header">
+      <ul>
+        <li class="wizard-step-header-tab active">
+          <span>1. Personal information</span>
+        </li>
+        <li class="wizard-step-header-tab">
+          <span>2. Message</span>
+        </li>
+        <li class="wizard-step-header-tab">
+          <span>3. Finish</span>
+        </li>
+      </ul>
+    </div>
     <div class="wizard-steps-body">
       <div class="wizard-step active">
-        <div class="form-group">
-          <label for="">CNS</label>
-          <input type="text" class="form-control">
+
+        <form id="form-step1" action="" class="row">
+          <div class="form-group col-md-12 ">
+            <label for="">Your name</label>
+            <input type="text" class="form-control" required>
+            <div class="invalid-feedback">
+                Please tell us your name!
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <label for="">Your email</label>
+            <input type="text" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide an email
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="wizard-step">
+        <form id="form-step2" action="" class="row">
+          <div class="form-group col-md-12 ">
+            <label for="">Your message</label>
+            <textarea class="form-control"></textarea>
+            <div class="invalid-feedback">
+                Please tell us your name!
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="wizard-step">
+        <h4>Your message was sent!</h4>
+      </div>
+    </div>
+
+    <div class="wizard-steps-footer">
+      <div class="row">
+        <div class="form-group col-md-12 text-center">
+          <button class="btn btn-danger btn-sm btn-back">Back</button>
+          <button class="btn btn-success btn-sm btn-next">Confirm</button>
         </div>
       </div>
-      <div class="wizard-step">Step Content 2</div>
-      <div class="wizard-step">Step Content 3</div>
-    </div>
-  
-    <div class="wizard-steps-footer">
-      <button class="btn btn-danger btn-back">Voltar</button>
-      <button class="btn btn-success btn-next">Confirmar</button>
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="../dist/wizard-steps.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       var wizard = new WizardSteps();
+      var btnNext = document.querySelector('.btn-next');
+      
+      wizard.onBeforeProceed = function(currentStepIndex) {
+        if (currentStepIndex == 1) {
+          btnNext.style.display = 'none';
+        }
+
+        if (currentStepIndex == 0) {
+          var form = document.getElementById('form-step1');
+          form.classList.add('was-validated');
+
+          return form.checkValidity();
+        }
+
+        
+
+        return true;
+      }
+
+      wizard.onAfterBack = function(currentStepIndex) {
+        if (currentStepIndex < 2) {
+          btnNext.style.display = 'inline-block';
+        }
+      }
     })
   </script>
 </body>
+
 </html>

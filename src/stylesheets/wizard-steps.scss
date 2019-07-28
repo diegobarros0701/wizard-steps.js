@@ -1,11 +1,41 @@
+body {
+  display: flex;
+}
+
 .wizard-steps {
+  width: 30%;
+  margin: 0 auto;
   background-color: white;
   box-shadow: 0px 0px 10px 0 lightgrey;
   border-radius: 3px;
+  padding: 15px 15px;
+
+  .wizard-steps-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+    
+    ul {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0;
+      list-style: none;
+    }
+    
+    .wizard-step-header-tab.active {
+      font-weight: bold;
+    }
+  }
 
   .wizard-steps-body {
     .wizard-step:not(.active) {
       display: none;
     }
+  }
+
+  .wizard-step {
+    display: flex;
+    justify-content: center;
   }
 }

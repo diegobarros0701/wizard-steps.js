@@ -2,18 +2,22 @@ class WizardSteps {
   /**
    * The constructor
    * 
-   * @param {{ element: string, events: { onConfirm: (() => true) | (() => false), onBack: (() => true) | (() => false) } }} options
+   * @param {{ element: string, events: { onBeforeProceed: ((currentStepIndex: number) => true) | ((currentStepIndex: number) => false), onAfterProceed: (currentStepIndex: number), onBeforeBack: ((currentStepIndex: number) => true) | ((currentStepIndex: number) => false), onAfterBack: (currentStepIndex: number) } }} options
    *
    * @property {string} options.element The selector for the wizard element
-   * @property {string} options.events.onConfirm The callback called before going to next step. To continue must return true if success, false if not
-   * @property {string} options.events.onBack The callback called before going to previous step. To continue must return true if success, false if not
+   * @property {string} options.events.onBeforeProceed The callback called before going to next step. To continue must return true if success, false if not
+   * @property {string} options.events.onAfterProceed The callback called after going to next step.
+   * @property {string} options.events.onBeforeBack The callback called before going to previous step. To continue must return true if success, false if not
+   * @property {string} options.events.onAfterBack The callback called after going to previous step.
    */
   constructor(options = {}) {
     this._options = Object.assign({
       element: '.wizard-steps',
       events: {
-        onConfirm: () => true,
-        onBack: () => true
+        onBeforeProceed: (currentStepIndex) => true,
+        onAfterProceed: (currentStepIndex) => {},
+        onBeforeBack: (currentStepIndex) => true,
+        onAfterBack: (currentStepIndex) => {},
       }
     }, options);
     
@@ -23,6 +27,7 @@ class WizardSteps {
     if (this._wizardStepContainer == undefined) {
       console.error("Can't find the specified element");
     } else {
+      this._wizardStepsHeaderTabs = this._wizardStepContainer.querySelectorAll('.wizard-steps-header .wizard-step-header-tab');
       this._wizardSteps = this._wizardStepContainer.querySelectorAll('.wizard-step');
       this._stepActive = this._wizardStepContainer.querySelector('.wizard-step.active');
       this._buttonBack = document.querySelector('.btn-back');
@@ -34,21 +39,39 @@ class WizardSteps {
   }
   
   /**
-   * Setter to update options.events.onConfirm
+   * Setter to update options.events.onBeforeProceed
    * 
-   * @param {(() => true) | (() => false)} callback - Callback to options.event.onConfirm, must return true or false
+   * @param {(() => true) | (() => false)} callback - The callback. Must return true or false.
    */
-  set onConfirm(callback) {
-    this._options.events.onConfirm = callback;
+  set onBeforeProceed(callback) {
+    this._options.events.onBeforeProceed = callback;
   }
 
   /**
-   * Setter to update options.events.onBack
+   * Setter to update options.events.onAfterProceed
    * 
-   * @param {(() => true) | (() => false)} callback - The callback. Must return true or false
+   * @param {(() => true) | (() => false)} callback - The callback.
    */
-  set onBack(callback) {
-    this._options.events.onBack = callback;
+  set onAfterProceed(callback) {
+    this._options.events.onAfterProceed = callback;
+  }
+
+  /**
+   * Setter to update options.events.onBeforeBack
+   * 
+   * @param {(() => true) | (() => false)} callback - The callback. Must return true or false.
+   */
+  set onBeforeBack(callback) {
+    this._options.events.onBeforeBack = callback;
+  }
+
+  /**
+   * Setter to update options.events.onAfterBack
+   * 
+   * @param {(() => true) | (() => false)} callback - The callback.
+   */
+  set onAfterBack(callback) {
+    this._options.events.onAfterBack = callback;
   }
 
   goToNextStep() {
@@ -77,6 +100,11 @@ class WizardSteps {
   }
 
   _toggleStep(index) {
+
+    // Header is not required
+    if (this._wizardStepsHeaderTabs.length > 0)
+      this._wizardStepsHeaderTabs[index].classList.toggle('active');
+
     this._wizardSteps[index].classList.toggle('active');
   }
 
@@ -85,10 +113,12 @@ class WizardSteps {
       this._buttonBack.addEventListener('click', (e) => {
         e.preventDefault();
   
-        let callbackResponse = this._options.events.onBack(this._currentStepIndex);
+        let callbackResponse = this._options.events.onBeforeBack(this._currentStepIndex);
         
         if (callbackResponse == true) {
           this.goToPreviousStep();
+
+          this._options.events.onAfterBack(this._currentStepIndex);
         }
       }, false)
     }
@@ -97,10 +127,12 @@ class WizardSteps {
       this._buttonNext.addEventListener('click', (e) => {
         e.preventDefault();
   
-        let callbackResponse = this._options.events.onConfirm(this._currentStepIndex);
+        let callbackResponse = this._options.events.onBeforeProceed(this._currentStepIndex);
 
         if (callbackResponse) {
           this.goToNextStep();
+          
+          this._options.events.onAfterProceed(this._currentStepIndex);
         }
       }, false)
     }

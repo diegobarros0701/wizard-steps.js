@@ -1,1 +1,135 @@
-!function(t){var e={};function n(r){if(e[r])return e[r].exports;var i=e[r]={i:r,l:!1,exports:{}};return t[r].call(i.exports,i,i.exports,n),i.l=!0,i.exports}n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var i in t)n.d(r,i,function(e){return t[e]}.bind(null,i));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=1)}([function(t,e,n){},function(t,e,n){"use strict";n.r(e);n(0);class r{constructor(t={}){this._options=Object.assign({element:".wizard-steps",events:{onConfirm:()=>!0,onBack:()=>!0}},t),this._wizardStepContainer=document.querySelector(this._options.element),null==this._wizardStepContainer?console.error("Can't find the specified element"):(this._wizardSteps=this._wizardStepContainer.querySelectorAll(".wizard-step"),this._stepActive=this._wizardStepContainer.querySelector(".wizard-step.active"),this._buttonBack=document.querySelector(".btn-back"),this._buttonNext=document.querySelector(".btn-next"),this._currentStepIndex=[].indexOf.call(this._wizardSteps,this._stepActive),this._registerEvents())}set onConfirm(t){this._options.events.onConfirm=t}set onBack(t){this._options.events.onBack=t}goToNextStep(){this._currentStepIndex<this._wizardSteps.length-1&&(this._toggleStep(this._currentStepIndex),this._toggleStep(this._currentStepIndex+1),this._currentStepIndex+=1)}goToPreviousStep(){this._currentStepIndex>0&&(this._toggleStep(this._currentStepIndex),this._toggleStep(this._currentStepIndex-1),this._currentStepIndex-=1)}goToStep(t){this._toggleStep(this._currentStepIndex),this._toggleStep(t)}_toggleStep(t){this._wizardSteps[t].classList.toggle("active")}_registerEvents(){null!=this._buttonBack&&this._buttonBack.addEventListener("click",t=>{t.preventDefault(),1==this._options.events.onBack(this._currentStepIndex)&&this.goToPreviousStep()},!1),null!=this._buttonNext&&this._buttonNext.addEventListener("click",t=>{t.preventDefault(),this._options.events.onConfirm(this._currentStepIndex)&&this.goToNextStep()},!1)}}n.d(e,"WizardSteps",function(){return r})}]);
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! exports provided: WizardSteps */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _stylesheets_wizard_steps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stylesheets/wizard-steps */ \"./src/stylesheets/wizard-steps.scss\");\n/* harmony import */ var _stylesheets_wizard_steps__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_stylesheets_wizard_steps__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _javascripts_wizard_steps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./javascripts/wizard-steps */ \"./src/javascripts/wizard-steps.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"WizardSteps\", function() { return _javascripts_wizard_steps__WEBPACK_IMPORTED_MODULE_1__[\"WizardSteps\"]; });\n\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/javascripts/wizard-steps.js":
+/*!*****************************************!*\
+  !*** ./src/javascripts/wizard-steps.js ***!
+  \*****************************************/
+/*! exports provided: WizardSteps */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"WizardSteps\", function() { return WizardSteps; });\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nvar WizardSteps =\n/*#__PURE__*/\nfunction () {\n  /**\n   * The constructor\n   * \n   * @param {{ element: string, events: { onBeforeProceed: ((currentStepIndex: number) => true) | ((currentStepIndex: number) => false), onAfterProceed: (currentStepIndex: number), onBeforeBack: ((currentStepIndex: number) => true) | ((currentStepIndex: number) => false), onAfterBack: (currentStepIndex: number) } }} options\n   *\n   * @property {string} options.element The selector for the wizard element\n   * @property {string} options.events.onBeforeProceed The callback called before going to next step. To continue must return true if success, false if not\n   * @property {string} options.events.onAfterProceed The callback called after going to next step.\n   * @property {string} options.events.onBeforeBack The callback called before going to previous step. To continue must return true if success, false if not\n   * @property {string} options.events.onAfterBack The callback called after going to previous step.\n   */\n  function WizardSteps() {\n    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};\n\n    _classCallCheck(this, WizardSteps);\n\n    this._options = Object.assign({\n      element: '.wizard-steps',\n      events: {\n        onBeforeProceed: function onBeforeProceed(currentStepIndex) {\n          return true;\n        },\n        onAfterProceed: function onAfterProceed(currentStepIndex) {},\n        onBeforeBack: function onBeforeBack(currentStepIndex) {\n          return true;\n        },\n        onAfterBack: function onAfterBack(currentStepIndex) {}\n      }\n    }, options);\n    this._wizardStepContainer = document.querySelector(this._options.element);\n\n    if (this._wizardStepContainer == undefined) {\n      console.error(\"Can't find the specified element\");\n    } else {\n      this._wizardStepsHeaderTabs = this._wizardStepContainer.querySelectorAll('.wizard-steps-header .wizard-step-header-tab');\n      this._wizardSteps = this._wizardStepContainer.querySelectorAll('.wizard-step');\n      this._stepActive = this._wizardStepContainer.querySelector('.wizard-step.active');\n      this._buttonBack = document.querySelector('.btn-back');\n      this._buttonNext = document.querySelector('.btn-next');\n      this._currentStepIndex = [].indexOf.call(this._wizardSteps, this._stepActive);\n\n      this._registerEvents();\n    }\n  }\n  /**\n   * Setter to update options.events.onBeforeProceed\n   * \n   * @param {(() => true) | (() => false)} callback - The callback. Must return true or false.\n   */\n\n\n  _createClass(WizardSteps, [{\n    key: \"goToNextStep\",\n    value: function goToNextStep() {\n      if (this._currentStepIndex < this._wizardSteps.length - 1) {\n        this._toggleStep(this._currentStepIndex);\n\n        this._toggleStep(this._currentStepIndex + 1);\n\n        this._currentStepIndex += 1;\n      }\n    }\n  }, {\n    key: \"goToPreviousStep\",\n    value: function goToPreviousStep() {\n      if (this._currentStepIndex > 0) {\n        this._toggleStep(this._currentStepIndex);\n\n        this._toggleStep(this._currentStepIndex - 1);\n\n        this._currentStepIndex -= 1;\n      }\n    }\n  }, {\n    key: \"goToStep\",\n    value: function goToStep(index) {\n      this._toggleStep(this._currentStepIndex);\n\n      this._toggleStep(index);\n    }\n  }, {\n    key: \"_toggleStep\",\n    value: function _toggleStep(index) {\n      // Header is not required\n      if (this._wizardStepsHeaderTabs.length > 0) this._wizardStepsHeaderTabs[index].classList.toggle('active');\n\n      this._wizardSteps[index].classList.toggle('active');\n    }\n  }, {\n    key: \"_registerEvents\",\n    value: function _registerEvents() {\n      var _this = this;\n\n      if (this._buttonBack != undefined) {\n        this._buttonBack.addEventListener('click', function (e) {\n          e.preventDefault();\n\n          var callbackResponse = _this._options.events.onBeforeBack(_this._currentStepIndex);\n\n          if (callbackResponse == true) {\n            _this.goToPreviousStep();\n\n            _this._options.events.onAfterBack(_this._currentStepIndex);\n          }\n        }, false);\n      }\n\n      if (this._buttonNext != undefined) {\n        this._buttonNext.addEventListener('click', function (e) {\n          e.preventDefault();\n\n          var callbackResponse = _this._options.events.onBeforeProceed(_this._currentStepIndex);\n\n          if (callbackResponse) {\n            _this.goToNextStep();\n\n            _this._options.events.onAfterProceed(_this._currentStepIndex);\n          }\n        }, false);\n      }\n    }\n  }, {\n    key: \"onBeforeProceed\",\n    set: function set(callback) {\n      this._options.events.onBeforeProceed = callback;\n    }\n    /**\n     * Setter to update options.events.onAfterProceed\n     * \n     * @param {(() => true) | (() => false)} callback - The callback.\n     */\n\n  }, {\n    key: \"onAfterProceed\",\n    set: function set(callback) {\n      this._options.events.onAfterProceed = callback;\n    }\n    /**\n     * Setter to update options.events.onBeforeBack\n     * \n     * @param {(() => true) | (() => false)} callback - The callback. Must return true or false.\n     */\n\n  }, {\n    key: \"onBeforeBack\",\n    set: function set(callback) {\n      this._options.events.onBeforeBack = callback;\n    }\n    /**\n     * Setter to update options.events.onAfterBack\n     * \n     * @param {(() => true) | (() => false)} callback - The callback.\n     */\n\n  }, {\n    key: \"onAfterBack\",\n    set: function set(callback) {\n      this._options.events.onAfterBack = callback;\n    }\n  }]);\n\n  return WizardSteps;\n}();\n\n\n\n//# sourceURL=webpack:///./src/javascripts/wizard-steps.js?");
+
+/***/ }),
+
+/***/ "./src/stylesheets/wizard-steps.scss":
+/*!*******************************************!*\
+  !*** ./src/stylesheets/wizard-steps.scss ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/stylesheets/wizard-steps.scss?");
+
+/***/ })
+
+/******/ });
+});

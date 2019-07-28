@@ -1,0 +1,29 @@
+{
+  "name": "wizard-steps.js",
+  "title": "Wizard Steps",
+  "main": "dist/wizard-steps.js",
+  "license": "MIT",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diegobarros/wizard-steps.js.git"
+  },
+  "keywords": [
+    "wizard",
+    "step",
+    "steps",
+    "js",
+    "javascript",
+    "library",
+    "browser"
+  ],
+  "dependencies": {
+    "css-loader": "^3.1.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.38.0",
+    "webpack-cli": "^3.3.6"
+  }
+}

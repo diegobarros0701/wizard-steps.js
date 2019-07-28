@@ -1,0 +1,7 @@
+.wizard-steps {
+  background-color: white;
+  box-shadow: 0px 0px 10px 0 lightgrey;
+  border-radius: 3px; }
+  .wizard-steps .wizard-steps-body .wizard-step:not(.active) {
+    display: none; }
+

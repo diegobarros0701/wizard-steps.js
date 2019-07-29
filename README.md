@@ -4,6 +4,12 @@ JS library to provide a wizard, like the one below:
 ![Example of a form wizard](https://i.imgur.com/8XGBeXc.png)
 
 ## Usage
+  
+Import the following files:
+  * dist/wizard-steps.full.min.css **(This one is for the default styles)**
+  * dist/wizard-steps.min.css **(This one is just the styles needed for the plugin works correctly)**
+  * dist/wizard-steps.min.js  
+  
 If you want the default style of the plugin, you will need this HTML structure:
 ```html
 <div id="my-wizard" class="wizard-steps">

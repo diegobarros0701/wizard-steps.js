@@ -7,6 +7,8 @@ body {
   .wizard-steps .wizard-steps-header ul {
     padding: 0;
     list-style: none; }
+    .wizard-steps .wizard-steps-header ul li {
+      display: inline-block; }
   .wizard-steps .wizard-steps-header .wizard-step-header-tab.active {
     font-weight: bold; }
 

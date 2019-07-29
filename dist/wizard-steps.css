@@ -5,8 +5,6 @@ body {
   margin-bottom: 20px;
   border-bottom: 1px solid lightgray; }
   .wizard-steps .wizard-steps-header ul {
-    display: inline-flex;
-    flex-wrap: nowrap;
     padding: 0;
     list-style: none; }
   .wizard-steps .wizard-steps-header .wizard-step-header-tab.active {

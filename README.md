@@ -4,7 +4,7 @@ JS library to provide a wizard, like the one below:
 ![Example of a form wizard](https://i.imgur.com/8XGBeXc.png)
 
 ## Usage
-First you need this HTML code in your page:
+If you want the default style of the plugin, you will need this HTML structure:
 ```html
 <div id="my-wizard" class="wizard-steps">
   <div class="wizard-steps-header">
@@ -39,8 +39,31 @@ First you need this HTML code in your page:
 </div>
 ```
 
+If you don't, this is the required HTML:
+```html
+<div id="my-wizard" class="wizard-steps">
+
+  <div class="wizard-step active">
+    <h4>Step 1</h4>
+  </div>
+  <div class="wizard-step">
+    <h4>Step 2</h4>
+  </div>
+        ...
+        ...
+        ...
+
+  <button class="btn-back">Back</button>
+  <button class="btn-next">Confirm</button>
+</div
+```
+
 Then do that in your javascript:
 ```javascript
+var wizard = new WizardSteps(); // Will search for .wizard-steps by default
+
+// or
+
 var wizard = new WizardSteps({
   element: '#my-wizard'
 })
@@ -53,30 +76,7 @@ About the HTML code, the elements with these classes are optionals:
   * wizard-steps-footer
   
 Despite the element with the **wizard-steps-footer** class is optional, you still need the elements with the classes **btn-back** and **btn-next** for walk through the wizard.  
-Like the **wizard-steps-footer** case, the **wizard-steps-body** is optional to, but you still need the elements with the **wizard-step** class, otherwise will not work.  
-  
-It's a good practice to follow the structure of the example, but you are free to customize by your own.  
-That being said, you can do that in your HTML:
-```html
-<div id="my-wizard">
-  <div class="wizard-step">
-    <h4>Step 1</h4>
-  </div>
-  <div class="wizard-step">
-    <h4>Step 2</h4>
-  </div>
-        ...
-        ...
-        ...
-</div>
-```
-
-And then, in your javascript:
-```javascript
-var wizard = new WizardSteps({
-  element: '#my-wizard'
-})
-```
+Like the **wizard-steps-footer** case, the **wizard-steps-body** is optional to, but you still need the elements with the **wizard-step** class for the steps, otherwise will not work.  
 
 ## Options
 The available options, with the default values, are shown below:

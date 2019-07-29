@@ -3,7 +3,7 @@
   "title": "Wizard Steps",
   "main": "dist/wizard-steps.js",
   "license": "MIT",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/diegobarros/wizard-steps.js.git"

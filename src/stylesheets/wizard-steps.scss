@@ -21,4 +21,10 @@ body {
   .wizard-step:not(.active) {
     display: none;
   }
+
+  .wizard-steps-footer {
+    border-top: 1px solid lightgray;
+    margin-top: 20px;
+    padding-top: 15px;
+  }
 }

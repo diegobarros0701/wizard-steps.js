@@ -112,7 +112,7 @@ class WizardSteps {
     if (this._buttonBack != undefined) {
       this._buttonBack.addEventListener('click', (e) => {
         e.preventDefault();
-  
+        
         let callbackResponse = this._options.events.onBeforeBack(this._currentStepIndex);
         
         if (callbackResponse == true) {

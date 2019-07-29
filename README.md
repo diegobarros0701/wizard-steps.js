@@ -1,7 +1,7 @@
 # Wizard Steps
 JS library to provide a wizard, like the one below:  
   
-![Example of a form wizard](https://ibb.co/tYKkpVq)
+![Example of a form wizard](https://i.imgur.com/8XGBeXc.png)
 
 ## Usage
 First you need this HTML code in your page:

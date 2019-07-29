@@ -109,14 +109,14 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 ```
 ## Events
 
-#### onBeforeProceed(currentStepIndex)
-Called before going to the next step
+#### # onBeforeProceed(currentStepIndex)
+Called before going to the next step. To continue must return true if success, false if not.
 
-#### onAfterProceed(currentStepIndex)
-Called after going to the next step
+#### # onAfterProceed(currentStepIndex)
+Called after going to the next step.
 
-#### onBeforeBackcurrentStepIndex)
-Called before going to the previous step
+#### # onBeforeBackcurrentStepIndex)
+Called before going to the previous step. To continue must return true if success, false if not.
 
-#### onAfterBack(currentStepIndex)
-Called after going to the previous step
+#### # onAfterBack(currentStepIndex)
+Called after going to the previous step.

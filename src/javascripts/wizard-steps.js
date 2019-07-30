@@ -18,6 +18,14 @@ class WizardSteps {
         onAfterProceed: (currentStepIndex) => {},
         onBeforeBack: (currentStepIndex) => true,
         onAfterBack: (currentStepIndex) => {},
+      },
+      buttons: {
+        back: {
+          hideOnInit: true
+        },
+        next: {
+          hideOnEnd: true
+        }
       }
     }, options);
     
@@ -33,6 +41,10 @@ class WizardSteps {
       this._buttonBack = document.querySelector('.btn-back');
       this._buttonNext = document.querySelector('.btn-next');
       this._currentStepIndex = [].indexOf.call(this._wizardSteps, this._stepActive);
+
+      if (this._currentStepIndex == 0 && this._options.buttons.back.hideOnInit) {
+        this._buttonBack.style.display = 'none';
+      }
 
       this._registerEvents();
     }
@@ -81,6 +93,11 @@ class WizardSteps {
       this._toggleStep(this._currentStepIndex + 1);
 
       this._currentStepIndex += 1;
+
+      // Final step
+      if (this._currentStepIndex == (this._wizardSteps.length - 1)) {
+        this._buttonNext.style.display = 'none';
+      }
     }
   }
 
@@ -91,6 +108,11 @@ class WizardSteps {
       this._toggleStep(this._currentStepIndex - 1);
 
       this._currentStepIndex -= 1;
+
+      // First step
+      if (this._currentStepIndex == 0) {
+        this._buttonBack.style.display = 'none';
+      }
     }
   }
 

@@ -20,14 +20,19 @@ class WizardSteps {
         onAfterBack: (currentStepIndex) => {},
       },
       buttons: {
+        classShow: '',
+        classHide: 'invisible-step-button',
         back: {
-          hideOnInit: true
+          hideOnFirstStep: true
         },
         next: {
-          hideOnEnd: true
+          hideOnLastStep: true
         }
       }
     }, options);
+
+    this._options.buttons.classShow = this._options.buttons.classShow || '';
+    this._options.buttons.classHide = this._options.buttons.classHide || '';
     
     
     this._wizardStepContainer = document.querySelector(this._options.element);
@@ -42,14 +47,16 @@ class WizardSteps {
       this._buttonNext = document.querySelector('.btn-next');
       this._currentStepIndex = [].indexOf.call(this._wizardSteps, this._stepActive);
 
-      if (this._currentStepIndex == 0 && this._options.buttons.back.hideOnInit) {
-        this._buttonBack.style.display = 'none';
+      if (this._options.buttons.back.hideOnFirstStep && this._currentStepIndex == 0) {
+        this._hideButton(this._buttonBack);
+      } else if (this._options.buttons.next.hideOnLastStep && this._currentStepIndex == (this._wizardSteps.length - 1)) {
+        this._hideButton(this._buttonNext);
       }
 
       this._registerEvents();
     }
   }
-  
+
   /**
    * Setter to update options.events.onBeforeProceed
    * 
@@ -95,9 +102,13 @@ class WizardSteps {
       this._currentStepIndex += 1;
 
       // Final step
-      if (this._currentStepIndex == (this._wizardSteps.length - 1)) {
-        this._buttonNext.style.display = 'none';
+      if (this._currentStepIndex == (this._wizardSteps.length - 1) && this._options.buttons.next.hideOnLastStep) {
+        this._hideButton(this._buttonNext);
+      } else {
+        this._showButton(this._buttonNext);
       }
+
+      this._showButton(this._buttonBack);
     }
   }
 
@@ -110,15 +121,35 @@ class WizardSteps {
       this._currentStepIndex -= 1;
 
       // First step
-      if (this._currentStepIndex == 0) {
-        this._buttonBack.style.display = 'none';
+      if (this._currentStepIndex == 0 && this._options.buttons.back.hideOnFirstStep) {
+        this._hideButton(this._buttonBack);
+      } else {
+        this._showButton(this._buttonBack)
       }
+
+      this._showButton(this._buttonNext);
     }
   }
 
   goToStep(index) {
     this._toggleStep(this._currentStepIndex);
     this._toggleStep(index);
+  }
+
+  _showButton(button) {
+    if (this._options.buttons.classHide.trim() != '')
+      button.classList.remove(this._options.buttons.classHide);
+
+    if (this._options.buttons.classShow.trim() != '')
+      button.classList.add(this._options.buttons.classShow);
+  }
+
+  _hideButton(button) {
+    if (this._options.buttons.classHide.trim() != '')
+      button.classList.add(this._options.buttons.classHide);
+
+    if (this._options.buttons.classShow.trim() != '')
+      button.classList.remove(this._options.buttons.classShow);
   }
 
   _toggleStep(index) {

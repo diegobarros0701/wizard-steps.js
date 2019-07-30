@@ -31,4 +31,12 @@ body {
     margin-top: 20px;
     padding-top: 15px;
   }
+
+  .invisible-step-button {
+    display: none;
+  }
+
+  .visible-step-button {
+    display: block;
+  }
 }

@@ -20,3 +20,9 @@ body {
   margin-top: 20px;
   padding-top: 15px; }
 
+.wizard-steps .invisible-step-button {
+  display: none; }
+
+.wizard-steps .visible-step-button {
+  display: block; }
+

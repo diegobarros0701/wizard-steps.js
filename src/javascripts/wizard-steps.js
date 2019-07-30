@@ -18,8 +18,21 @@ class WizardSteps {
         onAfterProceed: (currentStepIndex) => {},
         onBeforeBack: (currentStepIndex) => true,
         onAfterBack: (currentStepIndex) => {},
+      },
+      buttons: {
+        classShow: '',
+        classHide: 'invisible-step-button',
+        back: {
+          hideOnFirstStep: true
+        },
+        next: {
+          hideOnLastStep: true
+        }
       }
     }, options);
+
+    this._options.buttons.classShow = this._options.buttons.classShow || '';
+    this._options.buttons.classHide = this._options.buttons.classHide || '';
     
     
     this._wizardStepContainer = document.querySelector(this._options.element);
@@ -34,10 +47,16 @@ class WizardSteps {
       this._buttonNext = document.querySelector('.btn-next');
       this._currentStepIndex = [].indexOf.call(this._wizardSteps, this._stepActive);
 
+      if (this._options.buttons.back.hideOnFirstStep && this._currentStepIndex == 0) {
+        this._hideButton(this._buttonBack);
+      } else if (this._options.buttons.next.hideOnLastStep && this._currentStepIndex == (this._wizardSteps.length - 1)) {
+        this._hideButton(this._buttonNext);
+      }
+
       this._registerEvents();
     }
   }
-  
+
   /**
    * Setter to update options.events.onBeforeProceed
    * 
@@ -81,6 +100,15 @@ class WizardSteps {
       this._toggleStep(this._currentStepIndex + 1);
 
       this._currentStepIndex += 1;
+
+      // Final step
+      if (this._currentStepIndex == (this._wizardSteps.length - 1) && this._options.buttons.next.hideOnLastStep) {
+        this._hideButton(this._buttonNext);
+      } else {
+        this._showButton(this._buttonNext);
+      }
+
+      this._showButton(this._buttonBack);
     }
   }
 
@@ -91,12 +119,37 @@ class WizardSteps {
       this._toggleStep(this._currentStepIndex - 1);
 
       this._currentStepIndex -= 1;
+
+      // First step
+      if (this._currentStepIndex == 0 && this._options.buttons.back.hideOnFirstStep) {
+        this._hideButton(this._buttonBack);
+      } else {
+        this._showButton(this._buttonBack)
+      }
+
+      this._showButton(this._buttonNext);
     }
   }
 
   goToStep(index) {
     this._toggleStep(this._currentStepIndex);
     this._toggleStep(index);
+  }
+
+  _showButton(button) {
+    if (this._options.buttons.classHide.trim() != '')
+      button.classList.remove(this._options.buttons.classHide);
+
+    if (this._options.buttons.classShow.trim() != '')
+      button.classList.add(this._options.buttons.classShow);
+  }
+
+  _hideButton(button) {
+    if (this._options.buttons.classHide.trim() != '')
+      button.classList.add(this._options.buttons.classHide);
+
+    if (this._options.buttons.classShow.trim() != '')
+      button.classList.remove(this._options.buttons.classShow);
   }
 
   _toggleStep(index) {
@@ -112,29 +165,58 @@ class WizardSteps {
     if (this._buttonBack != undefined) {
       this._buttonBack.addEventListener('click', (e) => {
         e.preventDefault();
-  
-        let callbackResponse = this._options.events.onBeforeBack(this._currentStepIndex);
         
-        if (callbackResponse == true) {
-          this.goToPreviousStep();
+        if (this._options.events.onBeforeBack.constructor.name == 'AsyncFunction') {
+          this._options.events.onBeforeBack(this._currentStepIndex).then((canContinue) => {
+            this._continueToBackStepIfCan(canContinue)
+          })
+        } else {
+          let canContinue = this._options.events.onBeforeBack(this._currentStepIndex);
 
-          this._options.events.onAfterBack(this._currentStepIndex);
+          this._continueToBackStepIfCan(canContinue)
         }
+
       }, false)
     }
   
     if (this._buttonNext != undefined) {
       this._buttonNext.addEventListener('click', (e) => {
         e.preventDefault();
-  
-        let callbackResponse = this._options.events.onBeforeProceed(this._currentStepIndex);
 
-        if (callbackResponse) {
-          this.goToNextStep();
+        if (this._options.events.onBeforeProceed.constructor.name == 'AsyncFunction') {
+          this._options.events.onBeforeProceed(this._currentStepIndex).then((canContinue) => {
+            this._continueToNextStepIfCan(canContinue);
+          })
+        } else {
+          let canContinue = this._options.events.onBeforeProceed(this._currentStepIndex);
           
-          this._options.events.onAfterProceed(this._currentStepIndex);
+          this._continueToNextStepIfCan(canContinue);
         }
       }, false)
+    }
+  }
+
+  /**
+   * Checks if can go to the next step. If can, then go, otherwise not.
+   * 
+   * @param {boolean} canContinue - Tells if can proceed to the next step
+   */
+  _continueToNextStepIfCan(canContinue) {
+    if (canContinue) {
+      this.goToNextStep();
+      this._options.events.onAfterProceed(this._currentStepIndex);
+    }
+  }
+
+  /**
+   * Checks if can go to the previous step. If can, then go, otherwise not.
+   * 
+   * @param {boolean} canContinue - Tells if can proceed to the previous step
+   */
+  _continueToBackStepIfCan(canContinue) {
+    if (canContinue) {
+      this.goToPreviousStep();
+      this._options.events.onAfterBack(this._currentStepIndex);
     }
   }
 }

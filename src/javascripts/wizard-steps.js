@@ -113,28 +113,57 @@ class WizardSteps {
       this._buttonBack.addEventListener('click', (e) => {
         e.preventDefault();
         
-        let callbackResponse = this._options.events.onBeforeBack(this._currentStepIndex);
-        
-        if (callbackResponse == true) {
-          this.goToPreviousStep();
+        if (this._options.events.onBeforeBack.constructor.name == 'AsyncFunction') {
+          this._options.events.onBeforeBack(this._currentStepIndex).then((canContinue) => {
+            this._continueToBackStepIfCan(canContinue)
+          })
+        } else {
+          let canContinue = this._options.events.onBeforeBack(this._currentStepIndex);
 
-          this._options.events.onAfterBack(this._currentStepIndex);
+          this._continueToBackStepIfCan(canContinue)
         }
+
       }, false)
     }
   
     if (this._buttonNext != undefined) {
       this._buttonNext.addEventListener('click', (e) => {
         e.preventDefault();
-  
-        let callbackResponse = this._options.events.onBeforeProceed(this._currentStepIndex);
 
-        if (callbackResponse) {
-          this.goToNextStep();
+        if (this._options.events.onBeforeProceed.constructor.name == 'AsyncFunction') {
+          this._options.events.onBeforeProceed(this._currentStepIndex).then((canContinue) => {
+            this._continueToNextStepIfCan(canContinue);
+          })
+        } else {
+          let canContinue = this._options.events.onBeforeProceed(this._currentStepIndex);
           
-          this._options.events.onAfterProceed(this._currentStepIndex);
+          this._continueToNextStepIfCan(canContinue);
         }
       }, false)
+    }
+  }
+
+  /**
+   * Checks if can go to the next step. If can, then go, otherwise not.
+   * 
+   * @param {boolean} canContinue - Tells if can proceed to the next step
+   */
+  _continueToNextStepIfCan(canContinue) {
+    if (canContinue) {
+      this.goToNextStep();
+      this._options.events.onAfterProceed(this._currentStepIndex);
+    }
+  }
+
+  /**
+   * Checks if can go to the previous step. If can, then go, otherwise not.
+   * 
+   * @param {boolean} canContinue - Tells if can proceed to the previous step
+   */
+  _continueToBackStepIfCan(canContinue) {
+    if (canContinue) {
+      this.goToPreviousStep();
+      this._options.events.onAfterBack(this._currentStepIndex);
     }
   }
 }

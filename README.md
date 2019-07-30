@@ -100,6 +100,16 @@ new WizardSteps({
     },
     onAfterBack: function(currentStepIndex) {
     },
+  },
+  buttons: {
+    classShow: '',
+    classHide: 'insivible-step-button',
+    back: {
+      hideOnFirstStep: true
+    },
+    next: {
+      hideOnLastStep: true
+    }
   }
 })
 ```

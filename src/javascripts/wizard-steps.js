@@ -131,9 +131,11 @@ class WizardSteps {
     }
   }
 
-  goToStep(index) {
+  goToStep(stepIndex) {
     this._toggleStep(this._currentStepIndex);
-    this._toggleStep(index);
+    this._toggleStep(stepIndex);
+
+    this._currentStepIndex = stepIndex;
   }
 
   _showButton(button) {
@@ -168,12 +170,12 @@ class WizardSteps {
         
         if (this._options.events.onBeforeBack.constructor.name == 'AsyncFunction') {
           this._options.events.onBeforeBack(this._currentStepIndex).then((canContinue) => {
-            this._continueToBackStepIfCan(canContinue)
+            this._continueToBackStepIfCan(canContinue);
           })
         } else {
           let canContinue = this._options.events.onBeforeBack(this._currentStepIndex);
 
-          this._continueToBackStepIfCan(canContinue)
+          this._continueToBackStepIfCan(canContinue);
         }
 
       }, false)

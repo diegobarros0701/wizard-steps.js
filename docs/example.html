@@ -74,8 +74,9 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="../dist/wizard-steps.js"></script>
   <script>
+    var wizard;
     $(document).ready(function () {
-      var wizard = new WizardSteps();
+      wizard = new WizardSteps();
       var btnNext = document.querySelector('.btn-next');
       
       wizard.onBeforeProceed = function(currentStepIndex) {

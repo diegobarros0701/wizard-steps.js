@@ -64,7 +64,7 @@
     <div class="wizard-steps-footer">
       <div class="row">
         <div class="form-group col-md-12 text-center">
-          <button class="btn btn-danger btn-sm btn-back">Back</button>
+          <button class="btn btn-danger btn-sm btn-back invisible-step-button">Back</button>
           <button class="btn btn-success btn-sm btn-next">Confirm</button>
         </div>
       </div>
@@ -74,143 +74,8 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="../dist/wizard-steps.js"></script>
   <script>
-    var wizard;
     $(document).ready(function () {
-      wizard = new WizardSteps();
-      var btnNext = document.querySelector('.btn-next');
-      
-      // wizard.onBeforeProceed(function(oldIndex, newIndex) {
-      //   console.log('------------------------------');
-      //   console.log('Global before proceed event');
-      //   console.log('You are in: ' + oldIndex);
-      //   console.log('You are going to: ' + newIndex);
-      //   console.log('------------------------------');
-
-      //   // if (currentStepIndex == 1) {
-      //   //   btnNext.style.display = 'none';
-      //   // }
-
-      //   // if (currentStepIndex == 0) {
-      //   //   var form = document.getElementById('form-step1');
-      //   //   form.classList.add('was-validated');
-
-      //   //   return form.checkValidity();
-      //   // }
-
-        
-
-      //   return true;
-      // })
-
-      // wizard.onBeforeProceedToStep(2, function(oldIndex, newIndex) {
-      //   console.log('------------------------------');
-      //   console.log('Before proceed to step 2 event');
-      //   console.log('You are in: ' + oldIndex);
-      //   console.log('You are going to: ' + newIndex);
-      //   console.log('------------------------------');
-
-      //   return true;
-      // })
-
-      wizard.onBeforeBack(function(oldIndex, newIndex) {
-        console.log('------------------------------');
-        console.log('Global before back event');
-        console.log('You are in: ' + oldIndex);
-        console.log('You are going to: ' + newIndex);
-        console.log('------------------------------');
-
-        // if (currentStepIndex == 1) {
-        //   btnNext.style.display = 'none';
-        // }
-
-        // if (currentStepIndex == 0) {
-        //   var form = document.getElementById('form-step1');
-        //   form.classList.add('was-validated');
-
-        //   return form.checkValidity();
-        // }
-
-        
-
-        return true;
-      })
-
-      wizard.onAfterGoToStep(0, function(oldIndex, newIndex) {
-        console.log('------------------------------');
-        console.log('After go to step 2 event');
-        console.log('You are in: ' + oldIndex);
-        console.log('You are going to: ' + newIndex);
-        console.log('------------------------------');
-
-        return true;
-      })
-
-      wizard.onBeforeGoToStep(2, function(oldIndex, newIndex) {
-        console.log('------------------------------');
-        console.log('Before go to step 2 event');
-        console.log('You are in: ' + oldIndex);
-        console.log('You are going to: ' + newIndex);
-        console.log('------------------------------');
-
-        return true;
-      })
-
-      wizard.onBeforeBackToStep(0, function(oldIndex, newIndex) {
-        console.log('------------------------------');
-        console.log('Before back to step 0 event');
-        console.log('You are in: ' + oldIndex);
-        console.log('You are going to: ' + newIndex);
-        console.log('------------------------------');
-
-        return false;
-      })
-
-      
-
-      // wizard.onAfterProceed(function(oldIndex, newIndex) {
-      //   console.log('------------------------------');
-      //   console.log('Global after proceed event');
-      //   console.log('You are in: ' + newIndex);
-      //   console.log('You came from: ' + oldIndex);
-      //   console.log('------------------------------');
-
-      //   return true;
-      // })
-
-      // wizard.onAfterProceedToStep(2, function(oldIndex, newIndex) {
-      //   console.log('------------------------------');
-      //   console.log('After proceed to step 2 event');
-      //   console.log('You are in: ' + newIndex);
-      //   console.log('You came from: ' + oldIndex);
-      //   console.log('------------------------------');
-
-      //   return true;
-      // })
-
-      // wizard.onAfterBack(function(oldIndex, newIndex) {
-      //   console.log('------------------------------');
-      //   console.log('Global after back event');
-      //   console.log('You are in: ' + newIndex);
-      //   console.log('You came from: ' + oldIndex);
-      //   console.log('------------------------------');
-
-      //   return true;
-      // })
-
-      // wizard.onAfterBackToStep(0, function(oldIndex, newIndex) {
-      //   console.log('------------------------------');
-      //   console.log('After back to step 0 event');
-      //   console.log('You are in: ' + newIndex);
-      //   console.log('You came from: ' + oldIndex);
-      //   console.log('------------------------------');
-
-      //   return true;
-      // })
-
-      async function teste() {
-        for(let i = 0; i < 50; i++)
-          console.log(i);
-      }
+      var wizard = new WizardSteps();
     })
   </script>
 </body>

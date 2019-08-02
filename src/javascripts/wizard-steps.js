@@ -14,10 +14,16 @@ class WizardSteps {
     this._options = Object.assign({
       element: '.wizard-steps',
       events: {
-        onBeforeProceed: (currentStepIndex) => true,
+        onBeforeProceed: (currentStepIndex) => (true || false),
+        onBeforeProceedToStep: {},
         onAfterProceed: (currentStepIndex) => {},
+        onAfterProceedToStep: {},
         onBeforeBack: (currentStepIndex) => true,
+        onBeforeBackToStep: {},
         onAfterBack: (currentStepIndex) => {},
+        onAfterBackToStep: {},
+        onBeforeGoToStep: {},
+        onAfterGoToStep: {}
       },
       buttons: {
         classShow: '',
@@ -58,84 +64,149 @@ class WizardSteps {
   }
 
   /**
-   * Setter to update options.events.onBeforeProceed
+   * Callback for the onBeforeProceed event
    * 
-   * @param {(() => true) | (() => false)} callback - The callback. Must return true or false.
+   * @param {(stepIndex: number) => boolean} callback - The callback. Must return true or false.
    */
-  set onBeforeProceed(callback) {
+  onBeforeProceed(callback) {
     this._options.events.onBeforeProceed = callback;
   }
 
   /**
-   * Setter to update options.events.onAfterProceed
+   * Callback for the onBeforeProceedToStep event
    * 
-   * @param {(() => true) | (() => false)} callback - The callback.
+   * @param {string | number} step The step index or his selector
+   * @param {(step?: string | number) => boolean} callback The callback. Must return true or false.
    */
-  set onAfterProceed(callback) {
+  onBeforeProceedToStep(step, callback) {
+    this._options.events.onBeforeProceedToStep[step] = callback;
+  }
+
+  /**
+   * Callback for the onAfterProceed event
+   * 
+   * @param {(stepIndex: number) => void} callback - The callback.
+   */
+  onAfterProceed(callback) {
     this._options.events.onAfterProceed = callback;
   }
 
   /**
-   * Setter to update options.events.onBeforeBack
+   * Callback for the onAfterOroceedToStep event
    * 
-   * @param {(() => true) | (() => false)} callback - The callback. Must return true or false.
+   * @param {string | number} step The step index or his selector
+   * @param {(stepIndex: number) => void} callback The callback
    */
-  set onBeforeBack(callback) {
+  onAfterProceedToStep(step, callback) {
+    this._options.events.onAfterProceedToStep[step] = callback;
+  }
+
+  /**
+   * Callback for the onBeforeBack event
+   * 
+   * @param {(stepIndex: number) => boolean} callback - The callback. Must return true or false.
+   */
+  onBeforeBack(callback) {
     this._options.events.onBeforeBack = callback;
   }
 
   /**
-   * Setter to update options.events.onAfterBack
+   * Callback for the onBeforeBackToStep event
    * 
-   * @param {(() => true) | (() => false)} callback - The callback.
+   * @param {string | number} step The step index or his selector
+   * @param {(step?: string | number) => boolean} callback The callback. Must return true or false.
    */
-  set onAfterBack(callback) {
+  onBeforeBackToStep(step, callback) {
+    this._options.events.onBeforeBackToStep[step] = callback;
+  }
+
+  /**
+   * Callback for the onAfterBack event
+   * 
+   * @param {(stepIndex: number) => void} callback - The callback.
+   */
+  onAfterBack(callback) {
     this._options.events.onAfterBack = callback;
+  }
+
+  /**
+   * Callback for the onAfterBackToStep event
+   * 
+   * @param {string | number} step The step index or his selector
+   * @param {(stepIndex: number) => void} callback The callback
+   */
+  onAfterBackToStep(step, callback) {
+    this._options.events.onAfterBackToStep[step] = callback;
+  }
+
+  /**
+   * Callback for the onBeforeGoToStep event
+   * 
+   * @param {string | number} step The step index or his selector
+   * @param {(stepIndex: number) => boolean} callback The callback. Must return true or false.
+   */
+  onBeforeGoToStep(step, callback) {
+    this._options.events.onBeforeGoToStep[step] = callback;
+  }
+
+  /**
+   * Callback for the onAfterGoToStep event
+   * 
+   * @param {string | number} step The step index or his selector
+   * @param {(stepIndex: number) => void} callback The callback
+   */
+  onAfterGoToStep(step, callback) {
+    this._options.events.onAfterGoToStep[step] = callback;
   }
 
   goToNextStep() {
 
     if (this._currentStepIndex < (this._wizardSteps.length - 1)) {
-      this._toggleStep(this._currentStepIndex);
-      this._toggleStep(this._currentStepIndex + 1);
-
-      this._currentStepIndex += 1;
-
-      // Final step
-      if (this._currentStepIndex == (this._wizardSteps.length - 1) && this._options.buttons.next.hideOnLastStep) {
-        this._hideButton(this._buttonNext);
-      } else {
-        this._showButton(this._buttonNext);
-      }
-
-      this._showButton(this._buttonBack);
+      this.goToStep(this._currentStepIndex + 1);
     }
   }
 
   goToPreviousStep() {
 
     if (this._currentStepIndex > 0) {
-      this._toggleStep(this._currentStepIndex);
-      this._toggleStep(this._currentStepIndex - 1);
-
-      this._currentStepIndex -= 1;
-
-      // First step
-      if (this._currentStepIndex == 0 && this._options.buttons.back.hideOnFirstStep) {
-        this._hideButton(this._buttonBack);
-      } else {
-        this._showButton(this._buttonBack)
-      }
-
-      this._showButton(this._buttonNext);
+      this.goToStep(this._currentStepIndex - 1);
     }
   }
 
   goToStep(stepIndex) {
-    this._toggleStep(this._currentStepIndex);
-    this._toggleStep(stepIndex);
+    let canContinue = true;
 
-    this._currentStepIndex = stepIndex;
+    if (this._options.events.onBeforeGoToStep[stepIndex])
+      canContinue = this._options.events.onBeforeGoToStep[stepIndex](this._currentStepIndex, stepIndex);
+
+    if (canContinue) {
+      this._toggleStep(this._currentStepIndex);
+      this._toggleStep(stepIndex);
+
+      if (this._options.events.onAfterGoToStep[stepIndex])
+        this._options.events.onAfterGoToStep[stepIndex](this._currentStepIndex, stepIndex);
+
+      this._currentStepIndex = stepIndex;
+
+      this._disableButtonBackIfFirstStepOrEnableIfNot();
+      this._disableButtonNextIfFirstStepOrEnableIfNot();
+    }
+  }
+
+  _disableButtonBackIfFirstStepOrEnableIfNot() {
+    if (this._currentStepIndex == 0 && this._options.buttons.back.hideOnFirstStep) {
+      this._hideButton(this._buttonBack);
+    } else {
+      this._showButton(this._buttonBack)
+    }
+  }
+
+  _disableButtonNextIfFirstStepOrEnableIfNot() {
+    if (this._currentStepIndex == (this._wizardSteps.length - 1) && this._options.buttons.next.hideOnLastStep) {
+      this._hideButton(this._buttonNext);
+    } else {
+      this._showButton(this._buttonNext);
+    }
   }
 
   _showButton(button) {
@@ -172,16 +243,20 @@ class WizardSteps {
     if (this._buttonBack != undefined) {
       this._buttonBack.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        if (this._options.events.onBeforeBack.constructor.name == 'AsyncFunction') {
-          this._options.events.onBeforeBack(this._currentStepIndex).then((canContinue) => {
-            this._continueToBackStepIfCan(canContinue);
-          })
-        } else {
-          let canContinue = this._options.events.onBeforeBack(this._currentStepIndex);
 
-          this._continueToBackStepIfCan(canContinue);
-        }
+        let onBeforeBackFn = this._options.events.onBeforeBack;
+        let onBeforeBackToStepFn = this._options.events.onBeforeBackToStep[this._currentStepIndex - 1];
+        // let onBeforeGoToStepFn = this._options.events.onBeforeGoToStep[this._currentStepIndex - 1];
+        
+        let canContinue = onBeforeBackFn(this._currentStepIndex, this._currentStepIndex - 1);
+        
+        // if (onBeforeGoToStepFn != undefined)
+        //   canContinue = onBeforeGoToStepFn(this._currentStepIndex, this._currentStepIndex - 1) && canContinue;
+        
+        if (onBeforeBackToStepFn != undefined)
+          canContinue = onBeforeBackToStepFn(this._currentStepIndex, this._currentStepIndex - 1) && canContinue;
+
+        this._continueToBackStepIfCan(canContinue);
 
       }, false)
     }
@@ -190,18 +265,32 @@ class WizardSteps {
       this._buttonNext.addEventListener('click', (e) => {
         e.preventDefault();
 
-        if (this._options.events.onBeforeProceed.constructor.name == 'AsyncFunction') {
-          this._options.events.onBeforeProceed(this._currentStepIndex).then((canContinue) => {
-            this._continueToNextStepIfCan(canContinue);
-          })
-        } else {
-          let canContinue = this._options.events.onBeforeProceed(this._currentStepIndex);
-          
-          this._continueToNextStepIfCan(canContinue);
-        }
+        let onBeforeProceedFn = this._options.events.onBeforeProceed;
+        let onBeforeProceedToStepFn = this._options.events.onBeforeProceedToStep[this._currentStepIndex + 1];
+        // let onBeforeGoToStepFn = this._options.events.onBeforeGoToStep[this._currentStepIndex - 1];
+
+        let canContinue = onBeforeProceedFn(this._currentStepIndex, this._currentStepIndex + 1);
+
+        // if (onBeforeGoToStepFn != undefined)
+        //   canContinue = onBeforeGoToStepFn(this._currentStepIndex, this._currentStepIndex + 1) && canContinue;
+
+        if (onBeforeProceedToStepFn != undefined)
+          canContinue = onBeforeProceedToStepFn(this._currentStepIndex, this._currentStepIndex + 1) && canContinue;
+
+        this._continueToNextStepIfCan(canContinue);
       }, false)
     }
   }
+
+  // _continueToStepIfCan(stepType, canContinue) {
+  //   stepType == 'next' ? 
+  //     this._continueToNextStepIfCan(canContinue) : 
+  //     this._continueToBackStepIfCan(canContinue);
+  // }
+
+  // _isAsyncFunction(fn) {
+  //   return fn.constructor.name == 'AsyncFunction';
+  // }
 
   /**
    * Checks if can go to the next step. If can, then go, otherwise not.
@@ -211,7 +300,14 @@ class WizardSteps {
   _continueToNextStepIfCan(canContinue) {
     if (canContinue) {
       this.goToNextStep();
-      this._options.events.onAfterProceed(this._currentStepIndex);
+
+      this._options.events.onAfterProceed(this._currentStepIndex - 1, this._currentStepIndex);
+
+      // if (this._options.events.onAfterGoToStep[this._currentStepIndex] != undefined)
+      //   this._options.events.onAfterGoToStep[this._currentStepIndex](this._currentStepIndex - 1, this._currentStepIndex);
+
+      if (this._options.events.onAfterProceedToStep[this._currentStepIndex] != undefined)
+        this._options.events.onAfterProceedToStep[this._currentStepIndex](this._currentStepIndex - 1, this._currentStepIndex);
     }
   }
 
@@ -223,7 +319,14 @@ class WizardSteps {
   _continueToBackStepIfCan(canContinue) {
     if (canContinue) {
       this.goToPreviousStep();
-      this._options.events.onAfterBack(this._currentStepIndex);
+
+      this._options.events.onAfterBack(this._currentStepIndex + 1, this._currentStepIndex);
+
+      // if (this._options.events.onAfterGoToStep[this._currentStepIndex] != undefined)
+      //   this._options.events.onAfterGoToStep[this._currentStepIndex](this._currentStepIndex - 1, this._currentStepIndex);
+        
+      if (this._options.events.onAfterBackToStep[this._currentStepIndex] != undefined)
+        this._options.events.onAfterBackToStep[this._currentStepIndex](this._currentStepIndex + 1, this._currentStepIndex);
     }
   }
 }

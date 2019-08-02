@@ -79,27 +79,137 @@
       wizard = new WizardSteps();
       var btnNext = document.querySelector('.btn-next');
       
-      wizard.onBeforeProceed = function(currentStepIndex) {
-        if (currentStepIndex == 1) {
-          btnNext.style.display = 'none';
-        }
+      // wizard.onBeforeProceed(function(oldIndex, newIndex) {
+      //   console.log('------------------------------');
+      //   console.log('Global before proceed event');
+      //   console.log('You are in: ' + oldIndex);
+      //   console.log('You are going to: ' + newIndex);
+      //   console.log('------------------------------');
 
-        if (currentStepIndex == 0) {
-          var form = document.getElementById('form-step1');
-          form.classList.add('was-validated');
+      //   // if (currentStepIndex == 1) {
+      //   //   btnNext.style.display = 'none';
+      //   // }
 
-          return form.checkValidity();
-        }
+      //   // if (currentStepIndex == 0) {
+      //   //   var form = document.getElementById('form-step1');
+      //   //   form.classList.add('was-validated');
+
+      //   //   return form.checkValidity();
+      //   // }
+
+        
+
+      //   return true;
+      // })
+
+      // wizard.onBeforeProceedToStep(2, function(oldIndex, newIndex) {
+      //   console.log('------------------------------');
+      //   console.log('Before proceed to step 2 event');
+      //   console.log('You are in: ' + oldIndex);
+      //   console.log('You are going to: ' + newIndex);
+      //   console.log('------------------------------');
+
+      //   return true;
+      // })
+
+      wizard.onBeforeBack(function(oldIndex, newIndex) {
+        console.log('------------------------------');
+        console.log('Global before back event');
+        console.log('You are in: ' + oldIndex);
+        console.log('You are going to: ' + newIndex);
+        console.log('------------------------------');
+
+        // if (currentStepIndex == 1) {
+        //   btnNext.style.display = 'none';
+        // }
+
+        // if (currentStepIndex == 0) {
+        //   var form = document.getElementById('form-step1');
+        //   form.classList.add('was-validated');
+
+        //   return form.checkValidity();
+        // }
 
         
 
         return true;
-      }
+      })
 
-      wizard.onAfterBack = function(currentStepIndex) {
-        if (currentStepIndex < 2) {
-          btnNext.style.display = 'inline-block';
-        }
+      wizard.onAfterGoToStep(0, function(oldIndex, newIndex) {
+        console.log('------------------------------');
+        console.log('After go to step 2 event');
+        console.log('You are in: ' + oldIndex);
+        console.log('You are going to: ' + newIndex);
+        console.log('------------------------------');
+
+        return true;
+      })
+
+      wizard.onBeforeGoToStep(2, function(oldIndex, newIndex) {
+        console.log('------------------------------');
+        console.log('Before go to step 2 event');
+        console.log('You are in: ' + oldIndex);
+        console.log('You are going to: ' + newIndex);
+        console.log('------------------------------');
+
+        return true;
+      })
+
+      wizard.onBeforeBackToStep(0, function(oldIndex, newIndex) {
+        console.log('------------------------------');
+        console.log('Before back to step 0 event');
+        console.log('You are in: ' + oldIndex);
+        console.log('You are going to: ' + newIndex);
+        console.log('------------------------------');
+
+        return false;
+      })
+
+      
+
+      // wizard.onAfterProceed(function(oldIndex, newIndex) {
+      //   console.log('------------------------------');
+      //   console.log('Global after proceed event');
+      //   console.log('You are in: ' + newIndex);
+      //   console.log('You came from: ' + oldIndex);
+      //   console.log('------------------------------');
+
+      //   return true;
+      // })
+
+      // wizard.onAfterProceedToStep(2, function(oldIndex, newIndex) {
+      //   console.log('------------------------------');
+      //   console.log('After proceed to step 2 event');
+      //   console.log('You are in: ' + newIndex);
+      //   console.log('You came from: ' + oldIndex);
+      //   console.log('------------------------------');
+
+      //   return true;
+      // })
+
+      // wizard.onAfterBack(function(oldIndex, newIndex) {
+      //   console.log('------------------------------');
+      //   console.log('Global after back event');
+      //   console.log('You are in: ' + newIndex);
+      //   console.log('You came from: ' + oldIndex);
+      //   console.log('------------------------------');
+
+      //   return true;
+      // })
+
+      // wizard.onAfterBackToStep(0, function(oldIndex, newIndex) {
+      //   console.log('------------------------------');
+      //   console.log('After back to step 0 event');
+      //   console.log('You are in: ' + newIndex);
+      //   console.log('You came from: ' + oldIndex);
+      //   console.log('------------------------------');
+
+      //   return true;
+      // })
+
+      async function teste() {
+        for(let i = 0; i < 50; i++)
+          console.log(i);
       }
     })
   </script>

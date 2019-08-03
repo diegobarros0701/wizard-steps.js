@@ -1,0 +1,17 @@
+.wizard-steps {
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 10px 15px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.wizard-steps .wizard-steps-header ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wizard-steps .wizard-steps-header ul li {
+  width: 180px;
+  text-align: center;
+}

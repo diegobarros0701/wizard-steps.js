@@ -140,7 +140,7 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 | [onBeforeGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeGoToStep) | Called before going to the specified step. Unlike the **onBeforeProceed** this will called no matter if it's going backwards or forwards. Must return **true** to continue or **false** to not. |
 | [onAfterGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterGoToStep) | Called after going to the specified step. Unlike the **onAfterProceed** this will called no matter if it's going backwards or forwards. |
 
-#### # [`onBeforeProceed(callback(oldIndex, newIndex) : boolean)`](#on-before-proceed)
+#### `onBeforeProceed(callback(oldIndex, newIndex) : boolean)`
 
 ```javascript
 onBeforeProceed(function(oldIndex, newIndex) {
@@ -151,7 +151,7 @@ onBeforeProceed(function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onBeforeProceedToStep(stepIndex, callback(oldIndex, newIndex) : boolean)`](#onBeforeProceedToStep)
+#### # onBeforeProceedToStep(stepIndex, callback(oldIndex, newIndex) : boolean)
 
 ```javascript
 onBeforeProceedToStep(2, function(oldIndex, newIndex) {
@@ -162,7 +162,7 @@ onBeforeProceedToStep(2, function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onAfterProceed(callback(oldIndex, newIndex) : void)`](#onAfterProceed)
+#### # onAfterProceed(callback(oldIndex, newIndex) : void)
 
 ```javascript
 onAfterProceed(function(oldIndex, newIndex) {
@@ -171,7 +171,7 @@ onAfterProceed(function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onAfterProceedToStep(stepIndex, callback(oldIndex, newIndex) : void)`](#onAfterProceedToStep)
+#### # onAfterProceedToStep(stepIndex, callback(oldIndex, newIndex) : void)
 
 ```javascript
 onAfterProceedToStep(3, function(oldIndex, newIndex) {
@@ -180,7 +180,7 @@ onAfterProceedToStep(3, function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onBeforeBack(callback(oldIndex, newIndex) : boolean)`](#onBeforeBack)
+#### # onBeforeBack(callback(oldIndex, newIndex) : boolean)
 
 ```javascript
 onBeforeBack(function(oldIndex, newIndex) {
@@ -191,7 +191,7 @@ onBeforeBack(function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onBeforeBackToStep(stepIndex, callback(oldIndex, newIndex) : boolean)`](#onBeforeBackToStep)
+#### # onBeforeBackToStep(stepIndex, callback(oldIndex, newIndex) : boolean)
 
 ```javascript
 onBeforeBackToStep(0, function(oldIndex, newIndex) {
@@ -202,7 +202,7 @@ onBeforeBackToStep(0, function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onAfterBack(callback(oldIndex, newIndex) : void)`](#onAfterBack)
+#### # onAfterBack(callback(oldIndex, newIndex) : void)
 
 ```javascript
 onAfterBack(function(oldIndex, newIndex) {
@@ -211,7 +211,7 @@ onAfterBack(function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onAfterBackToStep(stepIndex, callback(oldIndex, newIndex) : void)`](#onAfterBackToStep)
+#### # onAfterBackToStep(stepIndex, callback(oldIndex, newIndex) : void)
 
 ```javascript
 onAfterBackToStep(1, function(oldIndex, newIndex) {
@@ -220,7 +220,7 @@ onAfterBackToStep(1, function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onBeforeGoToStep(stepIndex, callback(oldIndex, newIndex) : boolean)`](#onBeforeGoToStep)
+#### # onBeforeGoToStep(stepIndex, callback(oldIndex, newIndex) : boolean)
 
 ```javascript
 onBeforeGoToStep(1, function(oldIndex, newIndex) {
@@ -229,7 +229,7 @@ onBeforeGoToStep(1, function(oldIndex, newIndex) {
 })
 ```
 
-#### # [`onAfterGoToStep(stepIndex, callback(oldIndex, newIndex) : void)`](#onAfterGoToStep)
+#### # onAfterGoToStep(stepIndex, callback(oldIndex, newIndex) : void)
 
 ```javascript
 onAfterGoToStep(1, function(oldIndex, newIndex) {

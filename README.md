@@ -125,14 +125,115 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 ```
 ## Events
 
-#### # onBeforeProceed(currentStepIndex)
-Called before going to the next step. To continue must return true if success, false if not.
+**Important:** All the events callbacks can be **asynchronous**.
 
-#### # onAfterProceed(currentStepIndex)
-Called after going to the next step.
+| Event | Description |
+| ----- | ----- |
+| [onBeforeProceed](https://github.com/diegobarros0701/wizard-steps.js#onBeforeProceed) | Called before going to the next step. Must return **true** to continue or **false** to not. |
+| [onBeforeProceedToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeProceedToStep) | Called before going to the specified step index. Must return **true** to continue or **false** to not. |
+| [onAfterProceed](https://github.com/diegobarros0701/wizard-steps.js#onAfterProceed) | Called after going to the next step. |
+| [onAfterProceedToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterProceedToStep) | Called after going to the sepecified step. |
+| [onBeforeBack](https://github.com/diegobarros0701/wizard-steps.js#onBeforeBack) | Called before back to the previous step. Must return **true** to continue or **false** to not. |
+| [onBeforeBackToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeBackToStep) | Called before back to the specified step. Must return **true** to continue or **false** to not. |
+| [onAfterBack](https://github.com/diegobarros0701/wizard-steps.js#onAfterBack) | Called after back to the previous step. |
+| [onAfterBackToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterBackToStep) | Called after back to the specified step. |
+| [onBeforeGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeGoToStep) | Called before going to the specified step. Unlike the **onBeforeProceed** this will called no matter if it's going backwards or forwards. Must return **true** to continue or **false** to not. |
+| [onAfterGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterGoToStep) | Called after going to the specified step. Unlike the **onAfterProceed** this will called no matter if it's going backwards or forwards. |
 
-#### # onBeforeBackcurrentStepIndex)
-Called before going to the previous step. To continue must return true if success, false if not.
+#### # [`onBeforeProceed(callback(oldIndex, newIndex) : boolean)`](#onBeforeProceed)
 
-#### # onAfterBack(currentStepIndex)
-Called after going to the previous step.
+```javascript
+onBeforeProceed(function(oldIndex, newIndex) {
+  console.log('You are in: ', oldIndex);
+  console.log('You are going to: ', newIndex);
+
+  return true;
+})
+```
+
+#### # [`onBeforeProceedToStep(stepIndex, callback(oldIndex, newIndex) : boolean)`](#onBeforeProceedToStep)
+
+```javascript
+onBeforeProceedToStep(2, function(oldIndex, newIndex) {
+  console.log('You are in: ', oldIndex);
+  console.log('You are going to: ', newIndex);
+
+  return true;
+})
+```
+
+#### # [`onAfterProceed(callback(oldIndex, newIndex) : void)`](#onAfterProceed)
+
+```javascript
+onAfterProceed(function(oldIndex, newIndex) {
+  console.log('You came from: ', oldIndex);
+  console.log('You are in: ', newIndex);
+})
+```
+
+#### # [`onAfterProceedToStep(stepIndex, callback(oldIndex, newIndex) : void)`](#onAfterProceedToStep)
+
+```javascript
+onAfterProceedToStep(3, function(oldIndex, newIndex) {
+  console.log('You came from: ', oldIndex);
+  console.log('You are in: ', newIndex);
+})
+```
+
+#### # [`onBeforeBack(callback(oldIndex, newIndex) : boolean)`](#onBeforeBack)
+
+```javascript
+onBeforeBack(function(oldIndex, newIndex) {
+  console.log('You are in: ', oldIndex);
+  console.log('You are going to: ', newIndex);
+
+  return true;
+})
+```
+
+#### # [`onBeforeBackToStep(stepIndex, callback(oldIndex, newIndex) : boolean)`](#onBeforeBackToStep)
+
+```javascript
+onBeforeBackToStep(0, function(oldIndex, newIndex) {
+  console.log('You are in: ', oldIndex);
+  console.log('You are going to: ', newIndex);
+
+  return true;
+})
+```
+
+#### # [`onAfterBack(callback(oldIndex, newIndex) : void)`](#onAfterBack)
+
+```javascript
+onAfterBack(function(oldIndex, newIndex) {
+  console.log('You came from: ', oldIndex);
+  console.log('You are in: ', newIndex);
+})
+```
+
+#### # [`onAfterBackToStep(stepIndex, callback(oldIndex, newIndex) : void)`](#onAfterBackToStep)
+
+```javascript
+onAfterBackToStep(1, function(oldIndex, newIndex) {
+  console.log('You came from: ', oldIndex);
+  console.log('You are in: ', newIndex);
+})
+```
+
+#### # [`onBeforeGoToStep(stepIndex, callback(oldIndex, newIndex) : boolean)`](#onBeforeGoToStep)
+
+```javascript
+onBeforeGoToStep(1, function(oldIndex, newIndex) {
+  console.log('You are in: ', oldIndex);
+  console.log('You are going to: ', newIndex);
+})
+```
+
+#### # [`onAfterGoToStep(stepIndex, callback(oldIndex, newIndex) : void)`](#onAfterGoToStep)
+
+```javascript
+onAfterGoToStep(1, function(oldIndex, newIndex) {
+  console.log('You came from: ', oldIndex);
+  console.log('You are in: ', newIndex);
+})
+```

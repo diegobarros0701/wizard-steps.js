@@ -129,7 +129,7 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 
 | Event | Description |
 | ----- | ----- |
-| [onBeforeProceed](https://github.com/diegobarros0701/wizard-steps.js#onBeforeProceed) | Called before going to the next step. Must return **true** to continue or **false** to not. |
+| [onBeforeProceed](https://github.com/diegobarros0701/wizard-steps.js#on-before-proceed) | Called before going to the next step. Must return **true** to continue or **false** to not. |
 | [onBeforeProceedToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeProceedToStep) | Called before going to the specified step index. Must return **true** to continue or **false** to not. |
 | [onAfterProceed](https://github.com/diegobarros0701/wizard-steps.js#onAfterProceed) | Called after going to the next step. |
 | [onAfterProceedToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterProceedToStep) | Called after going to the sepecified step. |
@@ -140,7 +140,7 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 | [onBeforeGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeGoToStep) | Called before going to the specified step. Unlike the **onBeforeProceed** this will called no matter if it's going backwards or forwards. Must return **true** to continue or **false** to not. |
 | [onAfterGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterGoToStep) | Called after going to the specified step. Unlike the **onAfterProceed** this will called no matter if it's going backwards or forwards. |
 
-#### # [`onBeforeProceed(callback(oldIndex, newIndex) : boolean)`](#onBeforeProceed)
+#### # [`onBeforeProceed(callback(oldIndex, newIndex) : boolean)`](#on-before-proceed)
 
 ```javascript
 onBeforeProceed(function(oldIndex, newIndex) {

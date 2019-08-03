@@ -246,17 +246,8 @@ class WizardSteps {
 
         let onBeforeBackFn = this._options.events.onBeforeBack;
         let onBeforeBackToStepFn = this._options.events.onBeforeBackToStep[this._currentStepIndex - 1];
-        // let onBeforeGoToStepFn = this._options.events.onBeforeGoToStep[this._currentStepIndex - 1];
-        
-        let canContinue = onBeforeBackFn(this._currentStepIndex, this._currentStepIndex - 1);
-        
-        // if (onBeforeGoToStepFn != undefined)
-        //   canContinue = onBeforeGoToStepFn(this._currentStepIndex, this._currentStepIndex - 1) && canContinue;
-        
-        if (onBeforeBackToStepFn != undefined)
-          canContinue = onBeforeBackToStepFn(this._currentStepIndex, this._currentStepIndex - 1) && canContinue;
 
-        this._continueToBackStepIfCan(canContinue);
+        this._executeBeforeEventsCallbacks('back', onBeforeBackFn, onBeforeBackToStepFn);
 
       }, false)
     }
@@ -267,30 +258,66 @@ class WizardSteps {
 
         let onBeforeProceedFn = this._options.events.onBeforeProceed;
         let onBeforeProceedToStepFn = this._options.events.onBeforeProceedToStep[this._currentStepIndex + 1];
-        // let onBeforeGoToStepFn = this._options.events.onBeforeGoToStep[this._currentStepIndex - 1];
 
-        let canContinue = onBeforeProceedFn(this._currentStepIndex, this._currentStepIndex + 1);
-
-        // if (onBeforeGoToStepFn != undefined)
-        //   canContinue = onBeforeGoToStepFn(this._currentStepIndex, this._currentStepIndex + 1) && canContinue;
-
-        if (onBeforeProceedToStepFn != undefined)
-          canContinue = onBeforeProceedToStepFn(this._currentStepIndex, this._currentStepIndex + 1) && canContinue;
-
-        this._continueToNextStepIfCan(canContinue);
+        this._executeBeforeEventsCallbacks('next', onBeforeProceedFn, onBeforeProceedToStepFn);
       }, false)
     }
   }
 
-  // _continueToStepIfCan(stepType, canContinue) {
-  //   stepType == 'next' ? 
-  //     this._continueToNextStepIfCan(canContinue) : 
-  //     this._continueToBackStepIfCan(canContinue);
-  // }
+  _executeBeforeEventsCallbacks(stepType, firstCallback, secondCallback) {
+    firstCallback = firstCallback || (() => true);
+    secondCallback = secondCallback || (() => true);
 
-  // _isAsyncFunction(fn) {
-  //   return fn.constructor.name == 'AsyncFunction';
-  // }
+    let oldIndex = this._currentStepIndex;
+    let newIndex = stepType == 'next' ? (this._currentStepIndex + 1) : (this._currentStepIndex - 1);
+    let canContinue = true;
+
+    if(this._isAsyncFunction(firstCallback)) {
+      firstCallback(oldIndex, newIndex).then((firstCallbackResponse) => {
+        canContinue = firstCallbackResponse;
+
+        if (canContinue) {
+          if (this._isAsyncFunction(secondCallback)) {
+            secondCallback(oldIndex, newIndex).then((secondCallbackResponse) => {
+              canContinue = secondCallbackResponse;
+
+              this._continueToStepIfCan(stepType, canContinue);
+            })
+          } else {
+            canContinue = secondCallback(oldIndex, newIndex);
+
+            this._continueToStepIfCan(stepType, canContinue);
+          }
+        }
+      })
+    } else {
+      canContinue = firstCallback(oldIndex, newIndex);
+
+      if (canContinue) {
+        if (this._isAsyncFunction(secondCallback)) {
+          secondCallback(oldIndex, newIndex).then((secondCallbackResponse) => {
+            canContinue = secondCallbackResponse;
+
+            this._continueToStepIfCan(stepType, canContinue);
+          })
+        } else {
+          canContinue = secondCallback(oldIndex, newIndex);
+
+          this._continueToStepIfCan(stepType, canContinue);
+        }
+      }
+    }
+  }
+
+  _continueToStepIfCan(stepType, canContinue) {
+    stepType == 'next' ? 
+      this._continueToNextStepIfCan(canContinue) : 
+      this._continueToBackStepIfCan(canContinue);
+  }
+
+  _isAsyncFunction(fn) {
+    return fn.constructor.name == 'AsyncFunction';
+  }
 
   /**
    * Checks if can go to the next step. If can, then go, otherwise not.
@@ -302,9 +329,6 @@ class WizardSteps {
       this.goToNextStep();
 
       this._options.events.onAfterProceed(this._currentStepIndex - 1, this._currentStepIndex);
-
-      // if (this._options.events.onAfterGoToStep[this._currentStepIndex] != undefined)
-      //   this._options.events.onAfterGoToStep[this._currentStepIndex](this._currentStepIndex - 1, this._currentStepIndex);
 
       if (this._options.events.onAfterProceedToStep[this._currentStepIndex] != undefined)
         this._options.events.onAfterProceedToStep[this._currentStepIndex](this._currentStepIndex - 1, this._currentStepIndex);
@@ -322,9 +346,6 @@ class WizardSteps {
 
       this._options.events.onAfterBack(this._currentStepIndex + 1, this._currentStepIndex);
 
-      // if (this._options.events.onAfterGoToStep[this._currentStepIndex] != undefined)
-      //   this._options.events.onAfterGoToStep[this._currentStepIndex](this._currentStepIndex - 1, this._currentStepIndex);
-        
       if (this._options.events.onAfterBackToStep[this._currentStepIndex] != undefined)
         this._options.events.onAfterBackToStep[this._currentStepIndex](this._currentStepIndex + 1, this._currentStepIndex);
     }

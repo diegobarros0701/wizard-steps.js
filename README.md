@@ -130,15 +130,15 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 | Event | Description |
 | ----- | ----- |
 | [onBeforeProceed](#onbeforeproceedcallbackoldindex-newindex--boolean) | Called before going to the next step. Must return **true** to continue or **false** to not. |
-| [onBeforeProceedToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeProceedToStep) | Called before going to the specified step index. Must return **true** to continue or **false** to not. |
-| [onAfterProceed](https://github.com/diegobarros0701/wizard-steps.js#onAfterProceed) | Called after going to the next step. |
-| [onAfterProceedToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterProceedToStep) | Called after going to the sepecified step. |
-| [onBeforeBack](https://github.com/diegobarros0701/wizard-steps.js#onBeforeBack) | Called before back to the previous step. Must return **true** to continue or **false** to not. |
-| [onBeforeBackToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeBackToStep) | Called before back to the specified step. Must return **true** to continue or **false** to not. |
-| [onAfterBack](https://github.com/diegobarros0701/wizard-steps.js#onAfterBack) | Called after back to the previous step. |
-| [onAfterBackToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterBackToStep) | Called after back to the specified step. |
-| [onBeforeGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onBeforeGoToStep) | Called before going to the specified step. Unlike the **onBeforeProceed** this will called no matter if it's going backwards or forwards. Must return **true** to continue or **false** to not. |
-| [onAfterGoToStep](https://github.com/diegobarros0701/wizard-steps.js#onAfterGoToStep) | Called after going to the specified step. Unlike the **onAfterProceed** this will called no matter if it's going backwards or forwards. |
+| [onBeforeProceedToStep](#onbeforeproceedtostepstepindex-callbackoldindex-newindex--boolean) | Called before going to the specified step index. Must return **true** to continue or **false** to not. |
+| [onAfterProceed](#onafterproceedcallbackoldindex-newindex--void) | Called after going to the next step. |
+| [onAfterProceedToStep](#onafterproceedtostepstepindex-callbackoldindex-newindex--void) | Called after going to the sepecified step. |
+| [onBeforeBack](#onbeforebackcallbackoldindex-newindex--boolean) | Called before back to the previous step. Must return **true** to continue or **false** to not. |
+| [onBeforeBackToStep](#onbeforebacktostepstepindex-callbackoldindex-newindex--boolean) | Called before back to the specified step. Must return **true** to continue or **false** to not. |
+| [onAfterBack](#onafterbackcallbackoldindex-newindex--void) | Called after back to the previous step. |
+| [onAfterBackToStep](#onafterbacktostepstepindex-callbackoldindex-newindex--void) | Called after back to the specified step. |
+| [onBeforeGoToStep](#onbeforegotostepstepindex-callbackoldindex-newindex--boolean) | Called before going to the specified step. Unlike the **onBeforeProceed** this will called no matter if it's going backwards or forwards. Must return **true** to continue or **false** to not. |
+| [onAfterGoToStep](#onaftergotostepstepindex-callbackoldindex-newindex--void) | Called after going to the specified step. Unlike the **onAfterProceed** this will called no matter if it's going backwards or forwards. |
 
 #### `onBeforeProceed(callback(oldIndex, newIndex) : boolean)`
 

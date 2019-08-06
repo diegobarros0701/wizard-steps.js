@@ -49,8 +49,8 @@ class WizardSteps {
       this._wizardStepsHeaderTabs = this._wizardStepContainer.querySelectorAll('.wizard-steps-header .wizard-step-header-tab');
       this._wizardSteps = this._wizardStepContainer.querySelectorAll('.wizard-step');
       this._stepActive = this._wizardStepContainer.querySelector('.wizard-step.active');
-      this._buttonBack = document.querySelector('.btn-back');
-      this._buttonNext = document.querySelector('.btn-next');
+      this._buttonBack = this._wizardStepContainer.querySelector('.btn-back');
+      this._buttonNext = this._wizardStepContainer.querySelector('.btn-next');
       this._currentStepIndex = [].indexOf.call(this._wizardSteps, this._stepActive);
 
       if (this._options.buttons.back.hideOnFirstStep && this._currentStepIndex == 0) {

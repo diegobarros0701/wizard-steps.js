@@ -122,6 +122,15 @@ wizard.onAfterProceed = myFunction2(currentStepIndex);
 wizard.onBeforeBack = myFunction3(currentStepIndex);
 wizard.onAfterBack = myFunction4(currentStepIndex);
 ```
+
+## Methods
+
+| Method | Description |
+| ------ | ------ |
+| show() | Show the wizard element |
+| hide() | Hide the wizard element |
+| destroy() | Destroy the wizard element |
+
 ## Events
 
 **Important:** All the events callbacks can be **asynchronous**.

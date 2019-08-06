@@ -63,6 +63,18 @@ class WizardSteps {
     }
   }
 
+  show() {
+    this._wizardStepContainer.style.display = '';
+  }
+
+  hide() {
+    this._wizardStepContainer.style.display = 'none';
+  }
+
+  destroy() {
+    this._wizardStepContainer.remove();
+  }
+
   /**
    * Callback for the onBeforeProceed event
    * 

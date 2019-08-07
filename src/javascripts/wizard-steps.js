@@ -240,16 +240,18 @@ class WizardSteps {
 
   _toggleStep(index) {
 
-    // Header is not required
-    if (this._wizardStepsHeaderTabs.length > 0) {
-      if (index < this._wizardStepsHeaderTabs.length) {
-        this._wizardStepsHeaderTabs[index].classList.toggle('active');
-      } else {
-        this._wizardStepsHeaderTabs[this._wizardStepsHeaderTabs.length - 1].classList.toggle('active');
+    if (index >= 0) {
+      // Header is not required
+      if (this._wizardStepsHeaderTabs.length > 0) {
+        if (index < this._wizardStepsHeaderTabs.length) {
+          this._wizardStepsHeaderTabs[index].classList.toggle('active');
+        } else {
+          this._wizardStepsHeaderTabs[this._wizardStepsHeaderTabs.length - 1].classList.toggle('active');
+        }
       }
-    }
 
-    this._wizardSteps[index].classList.toggle('active');
+      this._wizardSteps[index].classList.toggle('active');
+    }
   }
 
   _registerEvents() {

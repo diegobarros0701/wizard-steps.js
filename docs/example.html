@@ -27,7 +27,7 @@
       </ul>
     </div>
     <div class="wizard-steps-body">
-      <div class="wizard-step">
+      <div class="wizard-step active">
 
         <form id="form-step1" action="" class="row">
           <div class="form-group col-md-12 ">
@@ -72,46 +72,17 @@
     </div>
   </div>
 
-  <div id="wz-2" class="wizard-steps">
-    <div class="wizard-steps-header">
-      <ul>
-        <li class="wizard-step-header-tab">
-          <span>1. Message</span>
-        </li>
-      </ul>
-    </div>
-    <div class="wizard-steps-body">
-      <div class="wizard-step">
-        <form id="form-step2" action="" class="row">
-          <div class="form-group col-md-12 ">
-            <label for="">Your message</label>
-            <textarea class="form-control"></textarea>
-            <div class="invalid-feedback">
-                Please tell us your name!
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="wizard-steps-footer">
-      <div class="row">
-        <div class="form-group col-md-12 text-center">
-          <button class="btn btn-danger btn-sm btn-back invisible-step-button">Back</button>
-          <button class="btn btn-success btn-sm btn-next">Confirm</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="../dist/wizard-steps.js"></script>
   <script>
     var wizard;
-    var wizard2;
     $(document).ready(function () {
-      wizard = new WizardSteps({ element: "#wz-1" });
-      wizard2 = new WizardSteps({ element: "#wz-2" });
+      wizard = new WizardSteps({ element: "#wz-1" ,
+      buttons: {
+      next: {
+        hideOnLastStep: false
+      }
+    }});
       var btnNext = document.querySelector('.btn-next');
       
       wizard.onBeforeProceed(async function(oldIndex, newIndex) {

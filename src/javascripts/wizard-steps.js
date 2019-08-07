@@ -1,3 +1,5 @@
+import { objectHandler } from './utils/object-handler';
+
 class WizardSteps {
   /**
    * The constructor
@@ -11,7 +13,7 @@ class WizardSteps {
    * @property {string} options.events.onAfterBack The callback called after going to previous step.
    */
   constructor(options = {}) {
-    this._options = Object.assign({
+    this._options = {
       element: '.wizard-steps',
       events: {
         onBeforeProceed: (currentStepIndex) => (true || false),
@@ -35,7 +37,9 @@ class WizardSteps {
           hideOnLastStep: true
         }
       }
-    }, options);
+    }
+
+    objectHandler.mergeObjects(this._options, options);
 
     this._options.buttons.classShow = this._options.buttons.classShow || '';
     this._options.buttons.classHide = this._options.buttons.classHide || '';

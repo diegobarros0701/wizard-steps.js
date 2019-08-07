@@ -52,7 +52,6 @@ class WizardSteps {
       this._buttonBack = this._wizardStepContainer.querySelector('.btn-back');
       this._buttonNext = this._wizardStepContainer.querySelector('.btn-next');
       this._currentStepIndex = [].indexOf.call(this._wizardSteps, this._stepActive);
-      this._currentStepIndex = this._currentStepIndex == -1 ? 0 : this._currentStepIndex;
 
       if (this._options.buttons.back.hideOnFirstStep && this._currentStepIndex == 0) {
         this._hideButton(this._buttonBack);

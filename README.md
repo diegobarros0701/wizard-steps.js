@@ -259,3 +259,7 @@ onBeforeLeaveStep(1, function(oldIndex, newIndex) {
   return true;
 })
 ```
+
+## TO DO
+
+* Add support for async functions on the **onBeforeGoToStep** and **onBeforeLeaveStep** events.

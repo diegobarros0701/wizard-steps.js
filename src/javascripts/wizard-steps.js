@@ -25,7 +25,8 @@ class WizardSteps {
         onAfterBack: (currentStepIndex) => {},
         onAfterBackToStep: {},
         onBeforeGoToStep: {},
-        onAfterGoToStep: {}
+        onAfterGoToStep: {},
+        onBeforeLeaveStep: {}
       },
       buttons: {
         classShow: '',
@@ -166,6 +167,16 @@ class WizardSteps {
   }
 
   /**
+   * Callback for the onBeforeLeaveStep event
+   * 
+   * @param {string | number} step The step index or his selector
+   * @param {(stepIndex: number) => boolean} callback The callback. Must return true or false.
+   */
+  onBeforeLeaveStep(step, callback) {
+    this._options.events.onBeforeLeaveStep[step] = callback;
+  }
+
+  /**
    * Callback for the onAfterGoToStep event
    * 
    * @param {string | number} step The step index or his selector
@@ -191,6 +202,10 @@ class WizardSteps {
 
   goToStep(stepIndex) {
     let canContinue = true;
+
+    if(this._options.events.onBeforeLeaveStep[this._currentStepIndex]) {
+      canContinue = this._options.events.onBeforeLeaveStep[this._currentStepIndex](this._currentStepIndex, stepIndex);
+    }
 
     if (this._options.events.onBeforeGoToStep[stepIndex])
       canContinue = this._options.events.onBeforeGoToStep[stepIndex](this._currentStepIndex, stepIndex);

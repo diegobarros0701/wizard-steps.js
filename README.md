@@ -147,7 +147,7 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 | [onAfterBackToStep](#onafterbacktostepstepindex-callbackoldindex-newindex--void) | Called after back to the specified step. |
 | [onBeforeGoToStep](#onbeforegotostepstepindex-callbackoldindex-newindex--boolean) | Called before going to the specified step. Unlike the **onBeforeProceed** this will called no matter if it's going backwards or forwards. Must return **true** to continue or **false** to not. |
 | [onAfterGoToStep](#onaftergotostepstepindex-callbackoldindex-newindex--void) | Called after going to the specified step. Unlike the **onAfterProceed** this will called no matter if it's going backwards or forwards. |
-| [onBeforeLeaveStep](#onbeforegoleavestepstepindex-callbackoldindex-newindex--boolean)| Called before leaving the specified step. . Must return **true** to continue or **false** to not. |
+| [onBeforeLeaveStep](#onbeforeleavestepstepindex-callbackoldindex-newindex--boolean)| Called before leaving the specified step. . Must return **true** to continue or **false** to not. |
 
 #### `onBeforeProceed(callback(oldIndex, newIndex) : boolean)`
 

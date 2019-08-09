@@ -147,6 +147,7 @@ wizard.onAfterBack = myFunction4(currentStepIndex);
 | [onAfterBackToStep](#onafterbacktostepstepindex-callbackoldindex-newindex--void) | Called after back to the specified step. |
 | [onBeforeGoToStep](#onbeforegotostepstepindex-callbackoldindex-newindex--boolean) | Called before going to the specified step. Unlike the **onBeforeProceed** this will called no matter if it's going backwards or forwards. Must return **true** to continue or **false** to not. |
 | [onAfterGoToStep](#onaftergotostepstepindex-callbackoldindex-newindex--void) | Called after going to the specified step. Unlike the **onAfterProceed** this will called no matter if it's going backwards or forwards. |
+| [onBeforeLeaveStep](#onbeforegoleavestepstepindex-callbackoldindex-newindex--boolean)| Called before leaving the specified step. . Must return **true** to continue or **false** to not. |
 
 #### `onBeforeProceed(callback(oldIndex, newIndex) : boolean)`
 
@@ -234,6 +235,8 @@ onAfterBackToStep(1, function(oldIndex, newIndex) {
 onBeforeGoToStep(1, function(oldIndex, newIndex) {
   console.log('You are in: ', oldIndex);
   console.log('You are going to: ', newIndex);
+
+  return true;
 })
 ```
 
@@ -243,5 +246,16 @@ onBeforeGoToStep(1, function(oldIndex, newIndex) {
 onAfterGoToStep(1, function(oldIndex, newIndex) {
   console.log('You came from: ', oldIndex);
   console.log('You are in: ', newIndex);
+})
+```
+
+#### `onBeforeLeaveStep(stepIndex, callback(oldIndex, newIndex) : boolean)`
+
+```javascript
+onBeforeLeaveStep(1, function(oldIndex, newIndex) {
+  console.log('You are in: ', oldIndex);
+  console.log('You are going to: ', newIndex);
+
+  return true;
 })
 ```

@@ -3,7 +3,7 @@
   "title": "Wizard Steps",
   "main": "dist/wizard-steps.js",
   "license": "MIT",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "author": {
     "name": "Diego Barros",
     "email": "diegobarros2812@gmail.com",
